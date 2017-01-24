@@ -5,5 +5,5 @@ This is a redesign of Syncthing GUI based on the mock ups of @calmh(?), which ca
 
 ## Installation 
 1. Download the repository
-2. Copy the `gui` folder to the data folder (where youi also find the config.xml) of Syncthing
+2. Copy the `gui` folder to the data folder (where you also find the config.xml) of Syncthing
 3. Visit the new dashboard and enjoy!
