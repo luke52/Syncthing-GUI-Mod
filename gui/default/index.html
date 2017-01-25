@@ -468,31 +468,20 @@ div.tooltip-inner {
 						<td>
 						-->
 							<div class="progress progess-device" ng-show="deviceStatus(deviceCfg) == 'syncing'">
-							  <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="{{completion[deviceCfg.deviceID]._total | number:0}}" aria-valuemin="0" aria-valuemax="100" style="width: {{completion[deviceCfg.deviceID]._total | number:0}}%;">
+							  <div class="progress-bar" role="progressbar" aria-valuenow="{{completion[deviceCfg.deviceID]._total | number:0}}" aria-valuemin="0" aria-valuemax="100" style="width: {{completion[deviceCfg.deviceID]._total | number:0}}%;">
 								<!--{{completion[deviceCfg.deviceID]._total | number:0}}%-->
 							  </div>
 							</div>
 						<!--</td></tr>	-->					
 				</td>
 			</tr>
-		
+			<tr>
+				<td>            <button type="button" class="btn btn-sm btn-default form-control" ng-click="addDevice()">
+              <span class="fa fa-plus"></span>&nbsp;<span translate>Add Remote Device</span>
+            </button></td>
+			</tr>
 		</table>
 
-        <div class="form-group">
-          <span class="pull-right">
-            <button type="button" class="btn btn-sm btn-default form-control" ng-click="addDevice()">
-              <span class="fa fa-plus"></span>&nbsp;<span translate>Add Remote Device</span>
-            </button>
-		  <button type="button" class="btn btn-sm btn-link" ng-click="globalChanges()">
-              <span class="fa fa-fw fa-history"></span>&nbsp;<span translate>Global Changes</span>
-            </button>
-
-          </span>
-          <div class="clearfix"></div>
-        </div>
-		
-	
-		
 		<!-- ende Geräte-->
 		</div>
 		
@@ -504,16 +493,16 @@ div.tooltip-inner {
 					<thead>
 						<tr class="header_wo_border">
 							<th class="col-sm-3"><span translate>Folder</span></th>
-							<th class="col-sm-2"><span translate>Size</span></th>
+							<th class="col-sm-2 hidden-xs"><span translate>Size</span></th>
 							<th class="col-sm-1 text-center"><span translate>Status</span></th>
-							<th class="col-sm-1"></th>
-							<th class="col-sm-3"><span translate>Devices</span></th>
+							<th class="col-sm-1 hidden-xs"></th>
+							<th class="col-sm-3 hidden-xs"><span translate>Devices</span></th>
 							<th class="col-sm-2"><span translate>Actions</span></th>
 						</tr>
 					</thead>
 						<tr ng-repeat="folder in folderList()">
 							<td><span class="fa fa-fw fa-folder"></span>&nbsp; {{folder.label}}<span ng-show="folder.label.length == 0">{{folder.id}}</span></td>
-							<td>
+							<td class=" hidden-xs">
 								<!-- Size -->
 									<span tooltip  data-original-title="<table><tr><td class='border-right'><span translate>Global State</span></td><td><span translate>Local State</span></td></tr><tr><td class='border-right'>{{model[folder.id].globalFiles | alwaysNumber}} {{'files' | translate}}<br> {{model[folder.id].globalDirectories | alwaysNumber}} {{'directories' | translate}}<br> ~{{model[folder.id].globalBytes | binary}}B</td><td>{{model[folder.id].localFiles | alwaysNumber}} {{'files' | translate}}<br> {{model[folder.id].localDirectories | alwaysNumber}} {{'directories' | translate}}<br> ~{{model[folder.id].localBytes | binary}}B</td></tr></table>">
 									  {{model[folder.id].globalBytes | binary}}B
@@ -552,8 +541,8 @@ div.tooltip-inner {
 								</div>							
 							
 							</td>
-							<td></td>
-							<td><!--{{sharesFolder(folder)}}-->
+							<td class=" hidden-xs"></td>
+							<td class=" hidden-xs"><!--{{sharesFolder(folder)}}-->
 								<span ng-repeat="device in folder.devices"><!--{{folder.devices}}{{device}}-->
 									  <span ng-if="deviceName(findDevice(device.deviceID)) != thisDeviceName()" >
 										<identicon class="panel-icon"  ng-class="{ 'color-online'   : deviceStatus(findDevice(device.deviceID)) == 'insync','color-offline'   : deviceStatus(findDevice(device.deviceID)) == 'disconnected', 'color-orange' : deviceStatus(findDevice(device.deviceID)) == 'syncing','color-grey' : deviceStatus(findDevice(device.deviceID)) == 'paused','color-grey' : deviceStatus(findDevice(device.deviceID)) =='unused'}" data-value="device.deviceID"  tooltip data-original-title="{{deviceName(findDevice(device.deviceID))}}"></identicon>
@@ -591,7 +580,10 @@ div.tooltip-inner {
 				</table>
 			</div>	
 				<span class="pull-right">
-				  <button type="button" class="btn btn-sm btn-default" ng-click="rescanAllFolders()">
+		  <button type="button" class="btn btn-sm btn-default" ng-click="globalChanges()">
+              <span class="fa fa-fw fa-history"></span>&nbsp;<span translate>Global Changes</span>
+            </button>
+				<button type="button" class="btn btn-sm btn-default" ng-click="rescanAllFolders()">
 					<span class="fa fa-refresh"></span>&nbsp;<span translate>Rescan All</span>
 				  </button>
 				  <button type="button" class="btn btn-sm btn-default" ng-click="addFolder()">
