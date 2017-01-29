@@ -66,7 +66,7 @@ fill: #F7A74C;
 
 .color-grey rect
 {
-fill: #ccc;
+fill: #ccc ;
 }
 
 .navbar-custom {
@@ -107,6 +107,42 @@ border-bottom: none !important;
 div.tooltip-inner {
     max-width: 350px;
 }
+
+#devices_table td, #devices_table th
+{
+vertical-align:middle;
+}
+
+
+.syncthing_color, nav .fa
+{
+color:#0891d1;
+}
+
+.syncthing_color
+{
+color:#45A3CC;
+}
+
+button.syncthing_color, button.syncthing_color:hover
+{
+border-color: #0891d1;
+color:#0891d1;
+}
+
+button.syncthing_color:hover,button.syncthing_color:active
+{
+border-color: #0891d1;
+background-color:#0891d1;
+color: #fff;
+}
+
+#devices_table_wrapper, button
+{
+border-radius: 3px !important;
+}
+
+
   
 </style>
 </head>
@@ -124,11 +160,11 @@ div.tooltip-inner {
       </span>
       <p class="navbar-text hidden-xs" ng-class="{'hidden-sm':upgradeInfo && upgradeInfo.newer}">{{thisDeviceName()}}</p>
 	  <p class="navbar-text hidden-xs"></p>
-      <p class="navbar-text hidden-xs" tooltip data-placement="bottom" data-original-title="<span translate>Download Rate</span><br><span translate>Transferred</span>: {{connectionsTotal.inBytesTotal | binary}}B"><span class="fa fa-fw fa-cloud-download"></span>&nbsp;{{connectionsTotal.inbps | binary}}B/s </p>
-	  <p class="navbar-text hidden-xs" tooltip data-placement="bottom" data-original-title="<span translate>Upload Rate</span><br><span translate>Transferred:</span> {{connectionsTotal.outBytesTotal | binary}}B"><span class="fa fa-fw fa-cloud-upload"></span>&nbsp;{{connectionsTotal.outbps | binary}}B/s </p>
-	  <p class="navbar-text hidden-xs" tooltip data-placement="bottom" data-original-title="<span translate>RAM Utilization</span>"><span class="fa fa-fw fa-th"></span>&nbsp;{{system.sys | binary}}B</p>
-	  <p class="navbar-text hidden-xs" tooltip data-placement="bottom" data-original-title="<span translate>CPU Utilization</span>"><span class="fa fa-fw fa-tachometer"></span>&nbsp;{{system.cpuPercent | alwaysNumber | natural:1}}%</p>
-	  <p class="navbar-text hidden-xs" ng-if="system.discoveryEnabled" tooltip data-placement="bottom" data-original-title="<span translate>Discovery</span>"><span class="fa fa-fw fa-map-signs"></span>&nbsp;                      <span ng-if="discoveryFailed.length == 0" class="data text-success">
+      <p class="navbar-text hidden-xs" tooltip data-placement="bottom" data-original-title="<span translate>Download Rate</span><br><span translate>Transferred</span>: {{connectionsTotal.inBytesTotal | binary}}B"><span class="fa fa-fw fa-cloud-download "></span>&nbsp;{{connectionsTotal.inbps | binary}}B/s </p>
+	  <p class="navbar-text hidden-xs" tooltip data-placement="bottom" data-original-title="<span translate>Upload Rate</span><br><span translate>Transferred:</span> {{connectionsTotal.outBytesTotal | binary}}B"><span class="fa fa-fw fa-cloud-upload "></span>&nbsp;{{connectionsTotal.outbps | binary}}B/s </p>
+	  <p class="navbar-text hidden-xs" tooltip data-placement="bottom" data-original-title="<span translate>RAM Utilization</span>"><span class="fa fa-fw fa-th "></span>&nbsp;{{system.sys | binary}}B</p>
+	  <p class="navbar-text hidden-xs" tooltip data-placement="bottom" data-original-title="<span translate>CPU Utilization</span>"><span class="fa fa-fw fa-tachometer "></span>&nbsp;{{system.cpuPercent | alwaysNumber | natural:1}}%</p>
+	  <p class="navbar-text hidden-xs" ng-if="system.discoveryEnabled" tooltip data-placement="bottom" data-original-title="<span translate>Discovery</span>"><span class="fa fa-fw fa-map-signs "></span>&nbsp;                      <span ng-if="discoveryFailed.length == 0" class="data text-success">
                         <span>{{discoveryTotal}}/{{discoveryTotal}}</span>
                       </span>
                       <span ng-if="discoveryFailed.length != 0" class="data" ng-class="{'text-danger': discoveryFailed.length == discoveryTotal}">
@@ -153,13 +189,13 @@ div.tooltip-inner {
         <li class="dropdown" language-select></li>
         <li>
           <a class="navbar-link" href="https://docs.syncthing.net/intro/gui.html" target="_blank">
-            <span class="fa fa-question-circle"></span>
+            <span class="fa fa-question-circle "></span>
             <span class="hidden-xs" translate>Help</span>
           </a>
         </li>
         <li class="dropdown action-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-            <span class="fa fa-cog"></span>
+            <span class="fa fa-cog "></span>
             <span class="hidden-xs" translate>Actions</span>
             <span class="caret"></span>
           </a>
@@ -397,7 +433,87 @@ div.tooltip-inner {
 												</span>
 											
 
-											<span>{{deviceName(deviceCfg)}}</span>	
+											<span popover data-trigger="hover" data-placement="right" data-html="true" onmouseover="javascript: function getDeviceInfo(element) { return $(element).next('.expandable-device-info').html();} $(this).attr('data-content', getDeviceInfo(this)   );" data-content="Device Info" >{{deviceName(deviceCfg)}}</span>	
+											
+								<div id="device-{{$index}}" class="hide expandable-device-info">
+								  <!--<div class="panel-body">-->
+									<table class="table table-condensed table-striped" style="width:300px;">
+									  <tbody>
+										<tr ng-if="connections[deviceCfg.deviceID].connected">
+										  <th><span class="fa fa-fw fa-cloud-download"></span>&nbsp;<span translate>Download Rate</span></th>
+										  <td class="text-right">{{connections[deviceCfg.deviceID].inbps | binary}}B/s ({{connections[deviceCfg.deviceID].inBytesTotal | binary}}B)</td>
+										</tr>
+										<tr ng-if="connections[deviceCfg.deviceID].connected">
+										  <th><span class="fa fa-fw fa-cloud-upload"></span>&nbsp;<span translate>Upload Rate</span></th>
+										  <td class="text-right">{{connections[deviceCfg.deviceID].outbps | binary}}B/s ({{connections[deviceCfg.deviceID].outBytesTotal | binary}}B)</td>
+										</tr>
+										<tr>
+										  <th><span class="fa fa-fw fa-link"></span>&nbsp<span translate>Address</span></th>
+										  <td ng-if="connections[deviceCfg.deviceID].connected" class="text-right">
+											<span tooltip data-original-title="{{ connections[deviceCfg.deviceID].type.indexOf('Relay') > -1 ? '' : connections[deviceCfg.deviceID].type }}">
+											  {{deviceAddr(deviceCfg)}}
+											</span>
+										  </td>
+										  <td ng-if="!connections[deviceCfg.deviceID].connected" class="text-right">
+											<span ng-repeat="addr in deviceCfg.addresses"><span tooltip data-original-title="{{'Configured' | translate}}">{{addr}}</span><br></span>
+											<span ng-repeat="addr in discoveryCache[deviceCfg.deviceID].addresses"><span tooltip data-original-title="{{'Discovered' | translate}}">{{addr}}</span><br></span>
+										  </td>
+										</tr>
+										<tr ng-if="connections[deviceCfg.deviceID].connected && connections[deviceCfg.deviceID].type.indexOf('Relay') > -1" tooltip data-original-title="Connections via relays might be rate limited by the relay">
+										  <th><span class="fa fa-fw fa-warning text-danger"></span>&nbsp;<span translate>Connection Type</span></th>
+										  <td class="text-right">{{connections[deviceCfg.deviceID].type}}</td>
+										</tr>
+										<tr ng-if="deviceCfg.compression != 'metadata'">
+										  <th><span class="fa fa-fw fa-compress"></span>&nbsp;<span translate>Compression</span></th>
+										  <td class="text-right">
+											<span ng-if="deviceCfg.compression == 'always'" translate>All Data</span>
+											<span ng-if="deviceCfg.compression == 'never'" translate>Off</span>
+										  </td>
+										</tr>
+										<tr ng-if="deviceCfg.introducer">
+										  <th><span class="fa fa-fw fa-thumbs-o-up"></span>&nbsp;<span translate>Introducer</span></th>
+										  <td translate class="text-right">Yes</td>
+										</tr>
+										<tr ng-if="deviceCfg.introducedBy">
+										  <th><span class="fa fa-fw fa-meh-o"></span>&nbsp;<span translate>Introduced By</span></th>
+										  <td class="text-right">{{ deviceName(findDevice(deviceCfg.introducedBy)) || deviceCfg.introducedBy.substring(0, 5) }}</td>
+										</tr>
+										<tr ng-if="connections[deviceCfg.deviceID].clientVersion">
+										  <th><span class="fa fa-fw fa-tag"></span>&nbsp;<span translate>Version</span></th>
+										  <td class="text-right">{{connections[deviceCfg.deviceID].clientVersion}}</td>
+										</tr>
+										<tr ng-if="!connections[deviceCfg.deviceID].connected">
+										  <th><span class="fa fa-fw fa-eye"></span>&nbsp;<span translate>Last seen</span></th>
+										  <td translate ng-if="!deviceStats[deviceCfg.deviceID].lastSeenDays || deviceStats[deviceCfg.deviceID].lastSeenDays >= 365" class="text-right">Never</td>
+										  <td ng-if="deviceStats[deviceCfg.deviceID].lastSeenDays < 365" class="text-right">{{deviceStats[deviceCfg.deviceID].lastSeen | date:"yyyy-MM-dd HH:mm:ss"}}</td>
+										</tr>
+										<tr ng-if="deviceFolders(deviceCfg).length > 0">
+										  <th><span class="fa fa-fw fa-folder"></span>&nbsp;<span translate>Folders</span></th>
+										  <td class="text-right">{{deviceFolders(deviceCfg).map(folderLabel).join(", ")}}</td>
+										</tr>
+									  </tbody>
+									</table>
+								  <!--</div>-->
+								  <!--
+								  <div class="panel-footer">
+									<span class="pull-right">
+									  <button ng-if="!deviceCfg.paused" type="button" class="btn btn-sm btn-default" ng-click="setDevicePause(deviceCfg.deviceID, true)">
+										<span class="fa fa-pause"></span>&nbsp;<span translate>Pause</span>
+									  </button>
+									  <button ng-if="deviceCfg.paused" type="button" class="btn btn-sm btn-default" ng-click="setDevicePause(deviceCfg.deviceID, false)">
+										<span class="fa fa-play"></span>&nbsp;<span translate>Resume</span>
+									  </button>
+									  <button type="button" class="btn btn-sm btn-default" ng-click="editDevice(deviceCfg)">
+										<span class="fa fa-pencil"></span>&nbsp;<span translate>Edit</span>
+									  </button>
+									</span>
+									<div class="clearfix"></div>
+								  </div>
+								  -->
+								</div>							
+
+							<!-- end of collapsed device details-->														
+											
 									</div> <!--end col-sm-12 device-->
 								</div>	 <!-- end row device-->
 								<div class="row small text-muted">
@@ -405,17 +521,17 @@ div.tooltip-inner {
 								
 									<span ng-switch="deviceStatus(deviceCfg)" class="">
 									  <span ng-switch-when="insync">
-										<div class="col-sm-6" tooltip data-original-title="<span translate>Download Rate</span><br><span translate>Transferred</span>:{{connections[deviceCfg.deviceID].inBytesTotal | binary}}B"><span class="fa fa-fw fa-cloud-download"></span>&nbsp;{{connections[deviceCfg.deviceID].inbps | binary}}B/s</div>
-										<div class="col-sm-6" tooltip data-original-title="<span translate>Upload Rate</span><br><span translate>Transferred</span>:{{connections[deviceCfg.deviceID].outBytesTotal | binary}}B"><span class="fa fa-fw fa-cloud-upload"></span>&nbsp;{{connections[deviceCfg.deviceID].outbps | binary}}B/s</div>
+										<div class="col-sm-6" tooltip data-original-title="<span translate>Download Rate</span><br><span translate>Transferred</span>:{{connections[deviceCfg.deviceID].inBytesTotal | binary}}B"><span class="fa fa-fw fa-cloud-download syncthing_color"></span>&nbsp;{{connections[deviceCfg.deviceID].inbps | binary}}B/s</div>
+										<div class="col-sm-6" tooltip data-original-title="<span translate>Upload Rate</span><br><span translate>Transferred</span>:{{connections[deviceCfg.deviceID].outBytesTotal | binary}}B"><span class="fa fa-fw fa-cloud-upload syncthing_color"></span>&nbsp;{{connections[deviceCfg.deviceID].outbps | binary}}B/s</div>
 										  
 									  </span>
 									  <span ng-switch-when="syncing">
-										<div class="col-sm-6" tooltip data-original-title="<span translate>Download Rate</span><br><span translate>Transferred</span>:{{connections[deviceCfg.deviceID].inBytesTotal | binary}}B"><span class="fa fa-fw fa-cloud-download"></span>&nbsp;{{connections[deviceCfg.deviceID].inbps | binary}}B/s</div>
-										<div class="col-sm-6" tooltip data-original-title="<span translate>Upload Rate</span><br><span translate>Transferred</span>:{{connections[deviceCfg.deviceID].outBytesTotal | binary}}B"><span class="fa fa-fw fa-cloud-upload"></span>&nbsp;{{connections[deviceCfg.deviceID].outbps | binary}}B/s</div>
+										<div class="col-sm-6" tooltip data-original-title="<span translate>Download Rate</span><br><span translate>Transferred</span>:{{connections[deviceCfg.deviceID].inBytesTotal | binary}}B"><span class="fa fa-fw fa-cloud-download syncthing_color"></span>&nbsp;{{connections[deviceCfg.deviceID].inbps | binary}}B/s</div>
+										<div class="col-sm-6" tooltip data-original-title="<span translate>Upload Rate</span><br><span translate>Transferred</span>:{{connections[deviceCfg.deviceID].outBytesTotal | binary}}B"><span class="fa fa-fw fa-cloud-upload syncthing_color"></span>&nbsp;{{connections[deviceCfg.deviceID].outbps | binary}}B/s</div>
 									  </span>
 									  <span ng-switch-when="disconnected">
 										<div class="col-sm-12" tooltip data-placement="bottom" data-original-title="<span translate>Last seen</span>" >
-											<span class="fa fa-fw fa-eye"></span>&nbsp;
+											<span class="fa fa-fw fa-eye syncthing_color"></span>&nbsp;
 										  <span translate ng-if="!deviceStats[deviceCfg.deviceID].lastSeenDays || deviceStats[deviceCfg.deviceID].lastSeenDays >= 365" class="text-right">Never</span>
 										  <span ng-if="deviceStats[deviceCfg.deviceID].lastSeenDays < 365" class="text-right">{{deviceStats[deviceCfg.deviceID].lastSeen | date:"yyyy-MM-dd HH:mm:ss"}}</span>
 										</div>
@@ -435,22 +551,30 @@ div.tooltip-inner {
 										  
 									</span>	
 								</div>					
+
+
+								
 					</div> <!--end details fields-->
 					
 					<div class="col-sm-2 " style="min-height:52px;;">
 									<span class="pull-right hidden_w_parent">
-									  <button ng-if="!deviceCfg.paused" type="button" class="btn btn-xs btn-default" ng-click="setDevicePause(deviceCfg.deviceID, true)">
+									  <button ng-if="!deviceCfg.paused" type="button" class="btn btn-xs btn-default syncthing_color" ng-click="setDevicePause(deviceCfg.deviceID, true)">
 										<span class="fa fa-pause"></span><!--&nbsp;<span translate>Pause</span>-->
 									  </button>
-									  <button ng-if="deviceCfg.paused" type="button" class="btn btn-xs btn-default" ng-click="setDevicePause(deviceCfg.deviceID, false)">
+									  <button ng-if="deviceCfg.paused" type="button" class="btn btn-xs btn-default syncthing_color" ng-click="setDevicePause(deviceCfg.deviceID, false)">
 										<span class="fa fa-play"></span><!--&nbsp;<span translate>Resume</span>-->
 									  </button>
-									  <button type="button" class="btn btn-xs btn-default" ng-click="editDevice(deviceCfg)">
+									  <button type="button" class="btn btn-xs btn-default syncthing_color" ng-click="editDevice(deviceCfg)">
 										<span class="fa fa-pencil"></span><!--&nbsp;<span translate>Edit</span>-->
 									  </button>
 									</span>
 									<div class="clearfix"></div>					
 					</div><!--end buttons fields-->
+					
+							<!-- collapsed device details-->
+
+		
+
 				</div><!--end device row-->
 		
 					<!--
@@ -476,7 +600,7 @@ div.tooltip-inner {
 				</td>
 			</tr>
 			<tr>
-				<td>            <button type="button" class="btn btn-sm btn-default form-control" ng-click="addDevice()">
+				<td>            <button type="button" class="btn btn-sm btn-default form-control  syncthing_color" ng-click="addDevice()">
               <span class="fa fa-plus"></span>&nbsp;<span translate>Add Remote Device</span>
             </button></td>
 			</tr>
@@ -488,8 +612,8 @@ div.tooltip-inner {
 	
 		
 		<div class="col-sm-9">
-			<div class="panel panel-default">
-				<table class="table table-striped">
+			<div class="panel panel-default" id="devices_table_wrapper">
+				<table class="table table-striped" id="devices_table">
 					<thead>
 						<tr class="header_wo_border">
 							<th class="col-sm-3"><span translate>Folder</span></th>
@@ -501,7 +625,7 @@ div.tooltip-inner {
 						</tr>
 					</thead>
 						<tr ng-repeat="folder in folderList()">
-							<td><span class="fa fa-fw fa-folder"></span>&nbsp; {{folder.label}}<span ng-show="folder.label.length == 0">{{folder.id}}</span></td>
+							<td><span class="fa fa-fw fa-folder syncthing_color"></span>&nbsp; {{folder.label}}<span ng-show="folder.label.length == 0">{{folder.id}}</span></td>
 							<td class=" hidden-xs">
 								<!-- Size -->
 									<span tooltip  data-original-title="<table><tr><td class='border-right'><span translate>Global State</span></td><td><span translate>Local State</span></td></tr><tr><td class='border-right'>{{model[folder.id].globalFiles | alwaysNumber}} {{'files' | translate}}<br> {{model[folder.id].globalDirectories | alwaysNumber}} {{'directories' | translate}}<br> ~{{model[folder.id].globalBytes | binary}}B</td><td>{{model[folder.id].localFiles | alwaysNumber}} {{'files' | translate}}<br> {{model[folder.id].localDirectories | alwaysNumber}} {{'directories' | translate}}<br> ~{{model[folder.id].localBytes | binary}}B</td></tr></table>">
@@ -557,19 +681,19 @@ div.tooltip-inner {
 								  <span class="fa fa-arrow-circle-up"></span>&nbsp;<span translate>Override Changes</span>
 								</button>
 								<span class="<!--pull-right-->">
-								  <button ng-if="!folder.paused" type="button" class="btn btn-sm btn-default" ng-click="setFolderPause(folder.id, true)" tooltip data-original-title="Pause">
+								  <button ng-if="!folder.paused" type="button" class="btn btn-sm btn-default syncthing_color" ng-click="setFolderPause(folder.id, true)" tooltip data-original-title="Pause">
 									<span class="fa fa-pause"></span>&nbsp;<!--<span translate>Pause</span>-->
 								  </button>
-								  <button ng-if="folder.paused" type="button" class="btn btn-sm btn-default" ng-click="setFolderPause(folder.id, false)" tooltip data-original-title="Start">
+								  <button ng-if="folder.paused" type="button" class="btn btn-sm btn-default syncthing_color" ng-click="setFolderPause(folder.id, false)" tooltip data-original-title="Start">
 									<span class="fa fa-play"></span>&nbsp;<!--<span translate>Resume</span>-->
 								  </button>
-								  <button type="button" class="btn btn-sm btn-default" ng-click="rescanFolder(folder.id)" ng-show="['idle', 'stopped', 'unshared'].indexOf(folderStatus(folder)) > -1" tooltip data-original-title="Rescan">
+								  <button type="button" class="btn btn-sm btn-default syncthing_color" ng-click="rescanFolder(folder.id)" ng-show="['idle', 'stopped', 'unshared'].indexOf(folderStatus(folder)) > -1" tooltip data-original-title="Rescan">
 									<span class="fa fa-refresh"></span>&nbsp;<!--<span translate>Rescan</span>-->
 								  </button>
-								  <button type="button" class="btn btn-sm btn-default" disabled="disabled"  ng-show="['scanning'].indexOf(folderStatus(folder)) > -1">
+								  <button type="button" class="btn btn-sm btn-default syncthing_color" disabled="disabled"  ng-show="['scanning'].indexOf(folderStatus(folder)) > -1">
 									<span class="fa fa-refresh"></span>&nbsp;<!--<span translate>Rescan</span>-->
 								  </button>
-								  <button type="button" class="btn btn-sm btn-default" ng-click="editFolder(folder)" tooltip data-original-title="Settings">
+								  <button type="button" class="btn btn-sm btn-default syncthing_color" ng-click="editFolder(folder)" tooltip data-original-title="Settings">
 									<span class="fa fa-pencil"></span>&nbsp;<!--<span translate>Edit</span>-->
 								  </button>
 								</span>
@@ -580,13 +704,13 @@ div.tooltip-inner {
 				</table>
 			</div>	
 				<span class="pull-right">
-		  <button type="button" class="btn btn-sm btn-default" ng-click="globalChanges()">
+		  <button type="button" class="btn btn-sm btn-default syncthing_color" ng-click="globalChanges()">
               <span class="fa fa-fw fa-history"></span>&nbsp;<span translate>Global Changes</span>
             </button>
-				<button type="button" class="btn btn-sm btn-default" ng-click="rescanAllFolders()">
+				<button type="button" class="btn btn-sm btn-default syncthing_color" ng-click="rescanAllFolders()">
 					<span class="fa fa-refresh"></span>&nbsp;<span translate>Rescan All</span>
 				  </button>
-				  <button type="button" class="btn btn-sm btn-default" ng-click="addFolder()">
+				  <button type="button" class="btn btn-sm btn-default syncthing_color" ng-click="addFolder()">
 					<span class="fa fa-plus"></span>&nbsp;<span translate>Add Folder</span>
 				  </button>
 				</span>
@@ -1058,6 +1182,6 @@ div.tooltip-inner {
   <script src="meta.js"></script>
   <script src="syncthing/app.js"></script>
   <!-- / gui application code -->
-
+  
 </body>
 </html>

@@ -1,7 +1,7 @@
 # Syncthing-GUI-Mod
-This is a redesign of Syncthing GUI based on the mock ups of @calmh(?), which can be found here: https://www.bountysource.com/issues/8862625-implement-upgraded-web-gui
+This is a redesign of Syncthing GUI based on the mockups of @Gilli, which can be found here: https://www.bountysource.com/issues/8862625-implement-upgraded-web-gui
 
-![alt text](https://github.com/luke52/Syncthing-GUI-Mod/blob/master/Screenshot.png "Screenshot")
+![alt text](https://github.com/luke52/Syncthing-GUI-Mod/blob/master/Screenshots/Screenshot2.png "Screenshot")
 
 ## Installation 
 1. Download the repository
