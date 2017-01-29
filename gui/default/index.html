@@ -116,7 +116,7 @@ vertical-align:middle;
 
 .syncthing_color, nav .fa
 {
-color:#0891d1;
+/*color:#0891d1;*/
 }
 
 .syncthing_color
@@ -127,7 +127,7 @@ color:#45A3CC;
 button.syncthing_color, button.syncthing_color:hover
 {
 border-color: #0891d1;
-color:#0891d1;
+/*color:#0891d1;*/
 }
 
 button.syncthing_color:hover,button.syncthing_color:active
@@ -682,19 +682,19 @@ border-radius: 3px !important;
 								</button>
 								<span class="<!--pull-right-->">
 								  <button ng-if="!folder.paused" type="button" class="btn btn-sm btn-default syncthing_color" ng-click="setFolderPause(folder.id, true)" tooltip data-original-title="Pause">
-									<span class="fa fa-pause"></span>&nbsp;<!--<span translate>Pause</span>-->
+									<span class="fa fa-pause"></span><!--&nbsp;<span translate>Pause</span>-->
 								  </button>
 								  <button ng-if="folder.paused" type="button" class="btn btn-sm btn-default syncthing_color" ng-click="setFolderPause(folder.id, false)" tooltip data-original-title="Start">
-									<span class="fa fa-play"></span>&nbsp;<!--<span translate>Resume</span>-->
+									<span class="fa fa-play"></span><!--&nbsp;<span translate>Resume</span>-->
 								  </button>
 								  <button type="button" class="btn btn-sm btn-default syncthing_color" ng-click="rescanFolder(folder.id)" ng-show="['idle', 'stopped', 'unshared'].indexOf(folderStatus(folder)) > -1" tooltip data-original-title="Rescan">
-									<span class="fa fa-refresh"></span>&nbsp;<!--<span translate>Rescan</span>-->
+									<span class="fa fa-refresh"></span><!--&nbsp;<span translate>Rescan</span>-->
 								  </button>
 								  <button type="button" class="btn btn-sm btn-default syncthing_color" disabled="disabled"  ng-show="['scanning'].indexOf(folderStatus(folder)) > -1">
-									<span class="fa fa-refresh"></span>&nbsp;<!--<span translate>Rescan</span>-->
+									<span class="fa fa-refresh"></span><!--&nbsp;<span translate>Rescan</span>-->
 								  </button>
 								  <button type="button" class="btn btn-sm btn-default syncthing_color" ng-click="editFolder(folder)" tooltip data-original-title="Settings">
-									<span class="fa fa-pencil"></span>&nbsp;<!--<span translate>Edit</span>-->
+									<span class="fa fa-pencil"></span><!--&nbsp;<span translate>Edit</span>-->
 								  </button>
 								</span>
 								<div class="clearfix"></div>							
