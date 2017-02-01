@@ -616,7 +616,7 @@ border-radius: 3px !important;
 				<table class="table table-striped" id="devices_table">
 					<thead>
 						<tr class="header_wo_border">
-							<th class="col-sm-3"><span translate>Folder</span></th>
+							<th class="col-sm-3" style="padding-left:20px;"><span translate>Folder</span></th>
 							<th class="col-sm-2 hidden-xs"><span translate>Size</span></th>
 							<th class="col-sm-1 text-center"><span translate>Status</span></th>
 							<th class="col-sm-1 hidden-xs"></th>
@@ -625,7 +625,7 @@ border-radius: 3px !important;
 						</tr>
 					</thead>
 						<tr ng-repeat="folder in folderList()">
-							<td><span class="fa fa-fw fa-folder syncthing_color"></span>&nbsp; {{folder.label}}<span ng-show="folder.label.length == 0">{{folder.id}}</span></td>
+							<td style="padding-left:20px;"><span class="fa fa-fw fa-folder syncthing_color"></span>&nbsp; {{folder.label}}<span ng-show="folder.label.length == 0">{{folder.id}}</span></td>
 							<td class=" hidden-xs">
 								<!-- Size -->
 									<span tooltip  data-original-title="<table><tr><td class='border-right'><span translate>Global State</span></td><td><span translate>Local State</span></td></tr><tr><td class='border-right'>{{model[folder.id].globalFiles | alwaysNumber}} {{'files' | translate}}<br> {{model[folder.id].globalDirectories | alwaysNumber}} {{'directories' | translate}}<br> ~{{model[folder.id].globalBytes | binary}}B</td><td>{{model[folder.id].localFiles | alwaysNumber}} {{'files' | translate}}<br> {{model[folder.id].localDirectories | alwaysNumber}} {{'directories' | translate}}<br> ~{{model[folder.id].localBytes | binary}}B</td></tr></table>">
